@@ -1,0 +1,15 @@
+body{
+	background-image: url("imgBackMain.jpg");
+}
+
+canvas {
+		background-image: url("imgBack2.jpg");
+		display: block;
+		position: absolute;
+		margin: auto;
+		top: 80px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
