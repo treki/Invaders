@@ -1,23 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Space Invaders</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 	<script src="helpers.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles.css">
+
 </head>
-
 <body>
-
-<div class="container text-center">
-<h1> INVADORS</h1>
-</div><!--end container-->
+<div id="firstPart">
+<h1> INVADERS</h1>
+<h3 id="inst">You must shoot and destroy all the aliens that are slowly descending towards you, before they reach you and take over the world.</h3>
+</div>
 <div class="container">
 <script>
 var
@@ -55,15 +52,15 @@ alSprite = [
 		init();
 		run();
 	});
-	img.src = "invaders3.jpg";
+	img.src = "img/invaders7.png";
 };
 /** * Initate game objects */
 function init() {
 	// set start settings
 	frames  = 0;
 	spFrame = 0;
-	lvFrame = 60;
-	dir = 1;
+	lvFrame = 40;
+	dir = .5;
 	// create the tank object
 	tank = {
 		sprite: taSprite,
@@ -91,11 +88,7 @@ function init() {
 					68 + 111*i, 0, ciSprite.w, ciSprite.h);
 			}
 		},
-				/**		 * Create damage effect on city-canvas
-		 * 
-		 * @param  {number} x x-coordinate
-		 * @param  {number} y y-coordinate
-		 */
+				/**		 * Create damage effect on city-canvas */
 		generateDamage: function(x, y) {
 			// round x, y position
 			x = Math.floor(x/2) * 2;
@@ -110,12 +103,7 @@ function init() {
 			this.ctx.clearRect(x-4, y-4, 2, 2);
 			this.ctx.clearRect(x-2, y-6, 2, 2);
 		},
-		/**		 * Check if pixel at (x, y) is opaque
-		 * 
-		 * @param  {number} x x-coordinate
-		 * @param  {number} y y-coordinate
-		 * @return {bool}     boolean value if pixel opaque
-		 */
+
 		hits: function(x, y) {
 			// transform y value to local coordinate system
 			y -= this.y;
@@ -131,16 +119,16 @@ function init() {
 	cities.init(); // initiate the cities
 	// create and populate alien array
 	aliens = [];
-	var rows = [1, 0, 0, 2, 2];
+	var rows = [1, 2, 1,0, 2];
 	for (var i = 0, len = rows.length; i < len; i++) {
-		for (var j = 0; j < 10; j++) {
+		for (var j = 0; j < 8; j++) {
 			var a = rows[i];
 			// create right offseted alien and push to alien
 			// array
 			aliens.push({
 				sprite: alSprite[a],
-				x: 30 + j*30 + [0, 4, 0][a],
-				y: 30 + i*30,
+				x: 40 + j*50 + [0, 4, 0][a],
+				y: 40 + i*40,
 				w: alSprite[a][0].w,
 				h: alSprite[a][0].h
 			});
@@ -148,8 +136,7 @@ function init() {
 	}
 };
 
-/** * Wrapper around the game loop function, updates and renders
- * the game */
+/** * Wrapper around the game loop function, updates and renders      */
 function run() {
 	var loop = function() {
 		update();
@@ -175,7 +162,7 @@ function update() {
 	// append new bullet to the bullet array if spacebar is
 	// pressed
 	if (input.isPressed(32)) { // Space
-		bullets.push(new Bullet(tank.x + 10, tank.y, -8, 2, 6, "#fff"));
+		bullets.push(new Bullet(tank.x + 10, tank.y, -8, 2, 6, "blue"));
 	}
 	// update all bullets position and checks
 	for (var i = 0, len = bullets.length; i < len; i++) {
@@ -244,7 +231,7 @@ function update() {
 			}
 		}
 		// create and append new bullet
-		bullets.push(new Bullet(a.x + a.w*0.5, a.y + a.h, 4, 2, 4, "#00FF00"));
+		bullets.push(new Bullet(a.x + a.w*0.5, a.y + a.h, 4, 2, 4, "#CC0000"));
 	}
 	// update the aliens at the current movement frequence
 	if (frames % lvFrame === 0) {
@@ -270,9 +257,7 @@ function update() {
 		}
 	}
 };
-/**
- * Render the game state to the canvas
- */
+/** * Render the game state to the canvas */
 function render() {
 	display.clear(); // clear the game canvas
 	// draw all aliens
@@ -294,5 +279,17 @@ function render() {
 // start and run the game
 main();
 </script>
-</div><!--end container-->
+</div>
+
+<audio autoplay>
+	<source src="Trinity.mp3">
+</audio>
+
+
+  
+    
+</body>
+</html>
+
+
 		
